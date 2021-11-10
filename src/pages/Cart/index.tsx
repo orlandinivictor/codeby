@@ -11,7 +11,7 @@ export function Cart() {
   const [items, setItems] = useState([]);
 
   const fetchData = async () => {
-    const { data } = await axios.get("abaixo-10-reais.json");
+    const { data } = await axios.get("acima-10-reais.json");
     const items = data.items.map((item: any) => {
       return {
         uri: item.imageUrl,
@@ -64,7 +64,6 @@ export function Cart() {
             })}
           </Typography>
         </Box>
-
         {items.length &&
           items
             .map((item: ItemProps) => item.finalPrice)

@@ -74,6 +74,13 @@ export const styles = makeStyles((theme) => ({
     fontSize: 20,
     fontWeight: 600,
     textTransform: "none",
+
+    transition: "filter 0.3s",
+
+    "&:hover": {
+      backgroundColor: "#3b74f2",
+      filter: "brightness(0.80)",
+    },
   },
 
   freeShip: {
