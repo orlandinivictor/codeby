@@ -11,7 +11,7 @@ export function Cart() {
   const [items, setItems] = useState([]);
 
   const fetchData = async () => {
-    const { data } = await axios.get("acima-10-reais.json");
+    const { data } = await axios.get("abaixo-10-reais.json");
     const items = data.items.map((item: any) => {
       return {
         uri: item.imageUrl,
@@ -51,6 +51,7 @@ export function Cart() {
 
           <Typography className={classes.amountValue}>
             {(
+              items.length &&
               items
                 .map((item: ItemProps) => item.finalPrice)
                 .reduce(function (sum, price) {
@@ -63,17 +64,19 @@ export function Cart() {
             })}
           </Typography>
         </Box>
-        {items
-          .map((item: ItemProps) => item.finalPrice)
-          .reduce(function (sum, price) {
-            return sum + price;
-          }) /
-          100 >
-          10 && (
-          <Typography className={classes.freeShip}>
-            Parabéns, sua compra tem frete grátis!
-          </Typography>
-        )}
+
+        {items.length &&
+          items
+            .map((item: ItemProps) => item.finalPrice)
+            .reduce(function (sum, price) {
+              return sum + price;
+            }) /
+            100 >
+            10 && (
+            <Typography className={classes.freeShip}>
+              Parabéns, sua compra tem frete grátis!
+            </Typography>
+          )}
       </Box>
 
       <Box className={classes.buttonBox}>
