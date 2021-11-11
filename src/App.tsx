@@ -1,6 +1,9 @@
+import { BrowserRouter } from "react-router-dom";
 import { Box, createTheme, makeStyles, ThemeProvider } from "@material-ui/core";
 
-import { Cart } from "./pages/Cart";
+import { CartProvider } from "./contexts/cartContext";
+
+import Routes from "./routes";
 
 const styles = makeStyles({
   container: {
@@ -41,7 +44,11 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Box className={classes.container}>
-        <Cart />
+        <CartProvider>
+          <BrowserRouter>
+            <Routes />
+          </BrowserRouter>
+        </CartProvider>
       </Box>
     </ThemeProvider>
   );

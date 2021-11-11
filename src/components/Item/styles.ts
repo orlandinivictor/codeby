@@ -39,4 +39,28 @@ export const styles = makeStyles((theme) => ({
     fontSize: 15,
     fontWeight: 500,
   },
+
+  addToCart: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+
+  button: {
+    backgroundColor: "#c7ffa6",
+    color: "#227a00",
+
+    marginLeft: 20,
+
+    minWidth: 0,
+    paddingInline: 15,
+    paddingBlock: 3,
+
+    transition: "filter 0.3s",
+
+    "&:hover": {
+      backgroundColor: "#c7ffa6",
+      filter: "brightness(0.8)",
+    },
+  },
 }));

@@ -1,48 +1,35 @@
-import { useEffect, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { Box, Button, Paper, Typography } from "@material-ui/core";
 
-import { styles } from "./styles";
-import axios from "axios";
 import { Item, ItemProps } from "../../components/Item";
+import { Header } from "../../components/Header";
+
+import { useCart } from "../../contexts/cartContext";
+
+import { styles } from "./styles";
 
 export function Cart() {
   const classes = styles();
-
-  const [items, setItems] = useState([]);
-
-  const fetchData = async () => {
-    const { data } = await axios.get("acima-10-reais.json");
-    const items = data.items.map((item: any) => {
-      return {
-        uri: item.imageUrl,
-        title: item.name,
-        price: item.price,
-        finalPrice: item.sellingPrice,
-      };
-    });
-
-    setItems(items);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const history = useHistory();
+  const { cartItems, handleClearCart } = useCart();
 
   return (
     <Paper elevation={8} className={classes.container}>
-      <Box className={classes.header}>
-        <Typography className={classes.title}>Meu carrinho</Typography>
-      </Box>
+      <Header title="Meu carrinho" />
 
       <Box className={classes.items}>
-        {items.map((item: ItemProps) => (
-          <Item
-            uri={item.uri}
-            title={item.title}
-            price={item.price}
-            finalPrice={item.finalPrice}
-          />
-        ))}
+        {cartItems &&
+          cartItems.map((item: ItemProps) => (
+            <Box key={item.id}>
+              <Item
+                id={item.id}
+                uri={item.uri}
+                title={item.title}
+                price={item.price}
+                finalPrice={item.finalPrice}
+              />
+            </Box>
+          ))}
       </Box>
 
       <Box className={classes.total}>
@@ -51,8 +38,8 @@ export function Cart() {
 
           <Typography className={classes.amountValue}>
             {(
-              items.length &&
-              items
+              cartItems.length &&
+              cartItems
                 .map((item: ItemProps) => item.finalPrice)
                 .reduce(function (sum, price) {
                   return sum + price;
@@ -64,22 +51,31 @@ export function Cart() {
             })}
           </Typography>
         </Box>
-        {items.length &&
-          items
-            .map((item: ItemProps) => item.finalPrice)
-            .reduce(function (sum, price) {
-              return sum + price;
-            }) /
-            100 >
-            10 && (
-            <Typography className={classes.freeShip}>
-              Parabéns, sua compra tem frete grátis!
-            </Typography>
-          )}
+        {cartItems.length &&
+        cartItems
+          .map((item: ItemProps) => item.finalPrice)
+          .reduce(function (sum, price) {
+            return sum + price;
+          }) /
+          100 >
+          10 ? (
+          <Typography className={classes.freeShip}>
+            Parabéns, sua compra tem frete grátis!
+          </Typography>
+        ) : (
+          ""
+        )}
       </Box>
 
       <Box className={classes.buttonBox}>
-        <Button variant="contained" className={classes.button}>
+        <Button
+          variant="contained"
+          className={classes.button}
+          onClick={() => {
+            handleClearCart();
+            history.push("/");
+          }}
+        >
           Finalizar compra
         </Button>
       </Box>

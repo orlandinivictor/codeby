@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core";
 
 export const styles = makeStyles((theme) => ({
   container: {
-    width: "50%",
+    width: "60%",
     minWidth: 300,
     height: "90%",
     borderRadius: 16,
@@ -22,33 +22,10 @@ export const styles = makeStyles((theme) => ({
     },
   },
 
-  items: {
-    paddingInline: 20,
-  },
-
-  total: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column",
-
-    paddingBlock: 30,
-    paddingInline: 20,
-
-    borderBlock: "1px solid #c4c4c4",
-  },
-
-  amount: {
+  gridContainer: {
     width: "100%",
-
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-
-  amountValue: {
-    fontSize: 20,
-    fontWeight: 600,
+    padding: 40,
+    paddingTop: 10,
   },
 
   buttonBox: {
@@ -70,15 +47,5 @@ export const styles = makeStyles((theme) => ({
       backgroundColor: "#3b74f2",
       filter: "brightness(0.80)",
     },
-  },
-
-  freeShip: {
-    backgroundColor: "#c7ffa6",
-    color: "#227a00",
-
-    fontSize: 18,
-    fontWeight: 600,
-    padding: 20,
-    borderRadius: 30,
   },
 }));
